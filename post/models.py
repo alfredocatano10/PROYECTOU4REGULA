@@ -1,4 +1,29 @@
 from django.db import models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.fields import GenericRelation
+
+from django.conf import settings
+
+
+class ComentariosManager(models.Manager):
+	def filtro_por_instancia(self, instance):
+		content_type = ContentType.objects.get_for_model(instance.__class__)    #TOMA NUESTRA CLASE DE MODELO Y DEVUELVE EL TIPO DE CONTENIDO A LA INSTANCIA DONDE SE REPRESENTA
+
+#CREACION DEL MODELO COMENTARIO
+''' class comentarios(models.Model):
+	USUARIO = models.ForeignKey(settings.AUTH_USER_MODEL, default =1)
+	texto = models.TextField(verbose_name = "ComentariO")
+
+	content_type = models.ForeignKey(ContentType, on_delete = models.CASCADE)
+	object_id = models.PositiveIntegerField()
+	content_object = GenericForeignKey('content_type', 'object_id')
+
+	tiempo = models.DateTimeField(auto_now_add = True)  # Para tomar tiempo de cuando fue creado el comentario
+	
+	class Meta:
+		ordering = ['-tiempo']   #Se busca acomodar los comentarios del mas reciente al mas antiguo en existencia
+'''
 
 
 #CREACION DE TABLAS PARA LA BD
@@ -34,3 +59,5 @@ class tacos (models.Model):
 		return self.nomb
 
 
+class Meta:
+	Permission = [('permiso_desde_codigo','este_es_un_permiso _reado_desde_codigo')]

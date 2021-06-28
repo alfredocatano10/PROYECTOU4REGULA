@@ -53,7 +53,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'crispy_forms',
+    'allauth',
+    'allauth.account', 
 ]
 
 MIDDLEWARE = [
@@ -152,14 +155,40 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
+#INICIO DE SESION POR USUARIO O CORREO
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 MEDIA_URL = '/media/'
-
 LOGIN_REDIRECT_URL = 'home'
-
 LOGOOUT_REDIRECT_URL = 'index'
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+SITE_ID = 1
+
+AUTHENTICATION_BACKENDS = (
+ 'django.contrib.auth.backends.ModelBackend',
+ 'allauth.account.auth_backends.AuthenticationBackend', # new
+)
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+
+#INICIO DE SESION CON GITHUB
+'''
+GITHUB_OAUTH_CLIENT_ID  =  os . getenv ( 'DJANGO_GITHUB_OAUTH_CLIENT_ID' ) 
+GITHUB_OAUTH_SECRET  =  os . getenv ( 'DJANGO_GITHUB_OAUTH_SECRET' ) 
+GITHUB_OAUTH_CALLBACK_URL  =  os . getenv ( 'DJANGO_GITHUB_OAUTH_CALLBACK_URL' ) 
+GITHUB_OAUTH_SCOPES  =  []
+
+AUTH_USER_MODEL  =  'users.User' 
+AUTHENTICATION_BACKENDS  =  ( 'django_github_oauth.backend.Backend' ,)  # auth sin contraseña 
+LOGIN_REDIRECT_URL  =  '/' 
+LOGOUT_REDIRECT_URL  =  '/'
+'''
+
